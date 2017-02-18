@@ -3,4 +3,7 @@
     <color name="colorPrimary">#725A74</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="colorPapelParedeAtendido">#4C6387</color>
+    <color name="colorBranco">#F5F5F5</color>
 </resources>

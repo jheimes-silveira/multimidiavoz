@@ -35,7 +35,7 @@
             android:inputType="phone"
             android:ems="10"
             android:id="@+id/editTextTelefone"
-            android:hint="Telefone"
+            android:hint="@string/app_telefone"
             android:textColorHint="#F5F5F5"
             android:layout_marginTop="50dp"
             android:background="#725A74"
@@ -48,7 +48,7 @@
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/editTextSenha"
-            android:hint="Senha"
+            android:hint="@string/app_senha"
             android:textColorHint="#F5F5F5"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
@@ -59,7 +59,7 @@
             android:layout_marginTop="5dp" />
 
         <Button
-            android:text="Cadastrar"
+            android:text="@string/app_cadastrar"
             android:id="@+id/button"
             android:gravity="center"
             android:layout_marginTop="10dp"
@@ -71,7 +71,7 @@
             />
 
         <TextView
-            android:text="Cadastrar"
+            android:text="@string/app_cadastrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView2"

@@ -16,7 +16,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ActCadastro" />
-        <activity android:name=".ActLogin"></activity>
+        <activity android:name=".ActLogin" />
+        <activity android:name=".ActAtendido" />
+        <activity android:name=".ActAtender"></activity>
     </application>
 
 </manifest>

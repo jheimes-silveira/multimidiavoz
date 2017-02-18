@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Multimídia</string>
+    <string name="app_telefone">Telefone</string>
+    <string name="app_senha">Senha</string>
+    <string name="app_nome">Nome</string>
+    <string name="app_cadastrar">Cadastrar</string>
+    <string name="app_login">Login</string>
+    <string name="app_info_entrar">Já cadastrado? Entrar</string>
 </resources>
