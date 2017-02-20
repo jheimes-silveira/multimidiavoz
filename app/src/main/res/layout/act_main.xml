@@ -10,8 +10,12 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:gravity="center"
-    tools:context="br.org.multimidia.multimidiavoz.ActMain">
-
+    tools:context="br.org.multimidia.multimidiavoz.view.ActMain">
+    <Button
+        android:id="@+id/principal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Principal" />
     <Button
         android:id="@+id/atender"
         android:layout_width="wrap_content"
@@ -27,10 +31,10 @@
         android:id="@+id/cadastro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Atendido" />
+        android:text="Cadastro" />
     <Button
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Atendido" />
+        android:text="Login" />
 </LinearLayout>

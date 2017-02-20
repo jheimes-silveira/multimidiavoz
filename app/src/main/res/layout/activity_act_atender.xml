@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="br.org.multimidia.multimidiavoz.ActAtender"
+    tools:context="br.org.multimidia.multimidiavoz.view.ActAtender"
     android:background="@color/colorPapelParedeAtendido">
 
     <LinearLayout
@@ -47,15 +47,15 @@
             android:layout_marginTop="110dp">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 app:srcCompat="@mipmap/icon_atender"
                 android:id="@+id/imageView3"
                 android:layout_weight="1" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 app:srcCompat="@mipmap/icon_desligar"
                 android:id="@+id/imageView4"
                 android:layout_weight="1" />

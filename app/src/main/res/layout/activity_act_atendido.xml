@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="br.org.multimidia.multimidiavoz.ActAtendido"
+    tools:context="br.org.multimidia.multimidiavoz.view.ActAtendido"
     android:background="@color/colorPapelParedeAtendido">
 
     <LinearLayout
@@ -41,7 +41,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             app:srcCompat="@mipmap/icon_desligar"
             android:id="@+id/imageViewDesligar"
             android:layout_weight="0.00"

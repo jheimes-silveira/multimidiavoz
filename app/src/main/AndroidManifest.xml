@@ -8,17 +8,21 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActMain">
+        <activity android:name=".view.ActMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActCadastro" />
-        <activity android:name=".ActLogin" />
-        <activity android:name=".ActAtendido" />
-        <activity android:name=".ActAtender"></activity>
+        <activity android:name=".view.ActCadastro" />
+        <activity android:name=".view.ActLogin" />
+        <activity android:name=".view.ActAtendido" />
+        <activity android:name=".view.ActAtender" />
+        <activity
+            android:name=".view.ActPrincipal"
+            android:label="@string/title_activity_act_principal"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
