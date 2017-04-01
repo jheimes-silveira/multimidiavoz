@@ -12,4 +12,6 @@ public class ActAtender extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act_atender);
     }
+
+
 }

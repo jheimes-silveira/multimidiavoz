@@ -12,7 +12,7 @@ import java.util.List;
 
 import br.org.multimidia.multimidiavoz.R;
 import br.org.multimidia.multimidiavoz.domain.Contato;
-import br.org.multimidia.multimidiavoz.ui.adapter.AdapterLvConversas;
+import br.org.multimidia.multimidiavoz.ui.adapter.AdapterLvContatos;
 
 
 /**
@@ -59,7 +59,7 @@ public class FgtContatos extends Fragment {
             user.setNumero("(34) 9 9226434"+ (i+1));
             profiles.add(user);
         }
-        lvContatos.setAdapter(new AdapterLvConversas(getContext(), profiles));
+        lvContatos.setAdapter(new AdapterLvContatos(getContext(), profiles));
     }
 
     private void initR() {

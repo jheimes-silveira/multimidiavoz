@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.org.multimidia.multimidiavoz.R;
-import br.org.multimidia.multimidiavoz.domain.Contato;
+import br.org.multimidia.multimidiavoz.domain.Conversa;
 import br.org.multimidia.multimidiavoz.utils.ViewHolder;
 
 /**
@@ -20,14 +20,14 @@ import br.org.multimidia.multimidiavoz.utils.ViewHolder;
 public class AdapterLvConversas extends BaseAdapter {
 
     private Context context;
-    private List<Contato> list;
+    private List<Conversa> list;
 
     /**
      * metodo defaut para view personalizado
      * @param context contexto
      * @param list lista com os objetos papeados pela interface ObjectAdapter
      */
-    public AdapterLvConversas(Context context, List<Contato> list) {
+    public AdapterLvConversas(Context context, List<Conversa> list) {
         this.context = context;
         this.list = list;
     }
@@ -54,7 +54,7 @@ public class AdapterLvConversas extends BaseAdapter {
             view = inflater.inflate(R.layout.adapter_list_conversas, parent, false);
         }
 
-        Contato object = list.get(position);
+        Conversa object = list.get(position);
         ViewHolder holder = (ViewHolder) view.getTag();
 
         TextView tvName;
@@ -85,11 +85,18 @@ public class AdapterLvConversas extends BaseAdapter {
         tvName = (TextView) holder.getProperty("tvName");
         ivImg = (ImageView) holder.getProperty("ivImg");
 
-        if (object.getNumero() != null) {
-            tvDescription.setText(object.getNumero());
+        if (object.getDtaInicio() != null && object.getDtaFinal() != null) {
+            long total = object.getDtaFinal().getTime() - object.getDtaInicio().getTime();
+            long m = total / 60 / 1000;
+            long s = total%60;
+            String txt = "";
+
+            txt = ""+m+" minutos e "+ s +" segundos ";
+
+            tvDescription.setText(txt);
         }
-        if (object.getNome() != null) {
-            tvName.setText(object.getNome());
+        if (object.getUsuarioDestino() != null) {
+            tvName.setText(object.getUsuarioDestino());
         }
 
         return view;
