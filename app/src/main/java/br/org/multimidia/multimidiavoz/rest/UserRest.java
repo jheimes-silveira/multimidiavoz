@@ -8,6 +8,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.org.multimidia.multimidiavoz.utils.Constant;
+
 /**
  * Created by jheimesilveira on 11/03/2016.
  */
@@ -30,7 +32,7 @@ public class UserRest extends SimpleRest {
         map.put("senha", password);
         map.put("telefone", phone);
         try {
-            String url = "http://172.20.10.7:8080/register/usuario";
+            String url = Constant.URL + "register/usuario";
             postCallObjectRequest(url, map, new CallbackObject() {
                 @Override
                 public void onSuccess(JSONObject jsonObject) {
