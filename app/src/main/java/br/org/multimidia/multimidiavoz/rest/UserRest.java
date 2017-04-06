@@ -32,7 +32,34 @@ public class UserRest extends SimpleRest {
         map.put("senha", password);
         map.put("telefone", phone);
         try {
-            String url = Constant.URL + "register/usuario";
+            String url = Constant.URL + "/login/register/usuario";
+            postCallObjectRequest(url, map, new CallbackObject() {
+                @Override
+                public void onSuccess(JSONObject jsonObject) {
+                    try {
+                        callback.onSuccess(jsonObject);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * logar no sistema
+     * @param callback retorno da chamada
+     */
+    public void logar(String login,
+                           String password,
+                           final CallbackObject callback) {
+        Map<String, String> map = new HashMap<>();
+        map.put("telefone", login);
+        map.put("senha", password);
+        try {
+            String url = Constant.URL + "/login/logar";
             postCallObjectRequest(url, map, new CallbackObject() {
                 @Override
                 public void onSuccess(JSONObject jsonObject) {

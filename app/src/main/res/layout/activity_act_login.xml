@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:inputType="phone"
             android:ems="10"
-            android:id="@+id/editTextTelefone"
+            android:id="@+id/et_telefone"
             android:hint="@string/app_telefone"
             android:textColorHint="#F5F5F5"
             android:layout_marginTop="50dp"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:ems="10"
-            android:id="@+id/editTextSenha"
+            android:id="@+id/et_senha"
             android:hint="@string/app_senha"
             android:textColorHint="#F5F5F5"
             android:layout_alignParentTop="true"
@@ -59,9 +59,10 @@
             android:layout_marginTop="5dp" />
 
         <Button
-            android:text="@string/app_cadastrar"
+            android:text="@string/app_login"
             android:id="@+id/button"
             android:gravity="center"
+            android:onClick="onLogin"
             android:layout_marginTop="10dp"
             android:layout_height="60dp"
             android:layout_weight="0.04"

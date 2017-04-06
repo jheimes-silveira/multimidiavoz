@@ -1,17 +1,26 @@
 package br.org.multimidia.multimidiavoz.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.SQLException;
+
+import br.org.multimidia.multimidiavoz.BO.ContatoBO;
 import br.org.multimidia.multimidiavoz.R;
+import br.org.multimidia.multimidiavoz.domain.Contato;
+import br.org.multimidia.multimidiavoz.domain.Meta;
 import br.org.multimidia.multimidiavoz.rest.SimpleRest;
 import br.org.multimidia.multimidiavoz.rest.UserRest;
+import br.org.multimidia.multimidiavoz.utils.Utils;
 
 public class ActCadastro extends AppCompatActivity {
 
@@ -19,6 +28,8 @@ public class ActCadastro extends AppCompatActivity {
     private EditText editTextNome;
     private EditText editTextTelefone;
     private EditText editTextSenha;
+    private ContatoBO bo;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +44,18 @@ public class ActCadastro extends AppCompatActivity {
     }
 
     private void initComponents(){
+        initData();
         initView();
         onSalvarUsuario();
+    }
+
+    private void initData() {
+        context = ActCadastro.this;
+        try {
+            bo = new ContatoBO(context);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void onSalvarUsuario() {
@@ -46,6 +67,11 @@ public class ActCadastro extends AppCompatActivity {
                     new SimpleRest.CallbackObject() {
                         @Override
                         public void onSuccess(JSONObject jsonObject) throws JSONException {
+                            Gson gson = new Gson();
+
+                            Meta meta = gson.fromJson(jsonObject.getJSONObject("meta").toString(), Meta.class);
+                            Contato contato = gson.fromJson(jsonObject.getJSONObject("user").toString(), Contato.class);
+                            Utils.showToast(ActCadastro.this, meta.getMessage());
                             Log.i("Log", jsonObject.toString());
                         }
                     });
