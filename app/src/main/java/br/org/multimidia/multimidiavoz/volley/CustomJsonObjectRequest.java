@@ -18,14 +18,25 @@ import java.util.Map;
 public class CustomJsonObjectRequest extends Request<JSONObject> {
 	private Listener<JSONObject> response;
 	private Map<String, String> params;
-	
-	
-	public CustomJsonObjectRequest(int method, String url, Map<String, String> params, Listener<JSONObject> response, ErrorListener listener) {
+	private Map<String, String> headers;
+
+	public CustomJsonObjectRequest(
+			int method,
+			String url,
+			Map<String, String> params,
+			Listener<JSONObject> response,
+			ErrorListener listener) {
+
 		super(method, url, listener);
 		this.params = params;
 		this.response = response;
 	}
-	public CustomJsonObjectRequest(String url, Map<String, String> params, Listener<JSONObject> response, ErrorListener listener) {
+	public CustomJsonObjectRequest(
+			String url,
+			Map<String, String> params,
+			Listener<JSONObject> response,
+			ErrorListener listener) {
+
 		super(Method.GET, url, listener);
 		this.params = params;
 		this.response = response;
@@ -34,11 +45,14 @@ public class CustomJsonObjectRequest extends Request<JSONObject> {
 	public Map<String, String> getParams() throws AuthFailureError{
 		return params;
 	}
-	
+
+	public void setHeaders(Map<String, String> headers) {
+		this.headers = headers;
+	}
+
 	public Map<String, String> getHeaders() throws AuthFailureError{
 		HashMap<String, String> header = new HashMap<String, String>();
 		header.put("apiKey", "Essa e minha API KEY: json object");
-		
 		return(header);
 	}
 	
@@ -49,7 +63,11 @@ public class CustomJsonObjectRequest extends Request<JSONObject> {
 	
 	@Override
 	protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+
 		try {
+			for (Map.Entry<String, String> map : headers.entrySet()) {
+				response.headers.put(map.getKey(), map.getValue());
+			}
 			String js = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
 			return(Response.success(new JSONObject(js), HttpHeaderParser.parseCacheHeaders(response)));
 		}

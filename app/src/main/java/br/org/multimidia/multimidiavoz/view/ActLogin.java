@@ -19,6 +19,7 @@ import br.org.multimidia.multimidiavoz.domain.Contato;
 import br.org.multimidia.multimidiavoz.domain.Meta;
 import br.org.multimidia.multimidiavoz.rest.SimpleRest;
 import br.org.multimidia.multimidiavoz.rest.UserRest;
+import br.org.multimidia.multimidiavoz.utils.Constant;
 import br.org.multimidia.multimidiavoz.utils.LocalStorage;
 import br.org.multimidia.multimidiavoz.utils.Utils;
 
@@ -73,10 +74,10 @@ public class ActLogin extends AppCompatActivity {
                                 Gson gson = new Gson();
                                 Meta meta = gson.fromJson(jsonObject.getJSONObject("meta").toString(), Meta.class);
                                 Contato contato = gson.fromJson(jsonObject.getJSONObject("user").toString(), Contato.class);
-                                String token = gson.fromJson(jsonObject.getJSONObject("token").toString(), String.class);
+                                String token = (String) jsonObject.get("token");
                                 if (meta.getOk()) {
                                     bo.create(contato);
-                                    localStorage.setItem("userToken", contato);
+                                    localStorage.setItem(Constant.USER_TOKEN, contato);
                                     localStorage.setItem(contato.getNumero(), token);
                                 }
                                 Utils.showToast(context, meta.getMessage());

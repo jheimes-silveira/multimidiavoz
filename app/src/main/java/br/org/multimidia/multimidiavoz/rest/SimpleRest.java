@@ -15,9 +15,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import br.org.multimidia.multimidiavoz.domain.Contato;
+import br.org.multimidia.multimidiavoz.utils.Constant;
+import br.org.multimidia.multimidiavoz.utils.LocalStorage;
 import br.org.multimidia.multimidiavoz.utils.Utils;
 import br.org.multimidia.multimidiavoz.volley.CustomJsonArrayRequest;
 import br.org.multimidia.multimidiavoz.volley.CustomJsonObjectRequest;
@@ -30,10 +34,12 @@ public class SimpleRest {
 
 	private RequestQueue rq;
 	private Context context;
+	private LocalStorage localStorage;
 
 	public SimpleRest(Context context) {
 		this.context = context;
 		rq = Volley.newRequestQueue(context);
+		localStorage = new LocalStorage(context);
 	}
 
 	/**
@@ -98,7 +104,13 @@ public class SimpleRest {
 					}
 				});
 
-		request.setTag("tag");
+		Contato contato = (Contato) localStorage.getItem(Constant.USER_TOKEN, Contato.class);
+		if (contato != null) {
+			String token = (String) localStorage.getItem(contato.getNumero(), String.class);
+			Map<String, String> header = new HashMap<>();
+			header.put("Authorization", "Bearer " + token);
+			request.setHeaders(header);
+		}
 		rq.add(request);
 	}
 
