@@ -8,6 +8,16 @@ import com.j256.ormlite.field.DatabaseField;
 
 public class Contato {
 
+    public static final String ID = "id";
+    public static final String NOME = "nome";
+    public static final String SENHA = "senha";
+    public static final String NUMERO = "numero";
+    public static final String CONTATO = "contato";
+    public static final String CONTATOS = "contatos";
+    public static final String CONTATO_LISTA_TELEFONICA = "contatoListaTelefonica";
+    public static final String MEU_NUMERO = "meuNumero";
+    public static final String CONTATO_NUMERO = "contatoNumero";
+
     @DatabaseField(generatedId = true, columnName = "id")
     private Integer id;
 

@@ -4,11 +4,14 @@ package br.org.multimidia.multimidiavoz.rest;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import br.org.multimidia.multimidiavoz.domain.Contato;
+import br.org.multimidia.multimidiavoz.domain.Meta;
 import br.org.multimidia.multimidiavoz.utils.Constant;
 import br.org.multimidia.multimidiavoz.utils.LocalStorage;
 import br.org.multimidia.multimidiavoz.utils.Utils;
@@ -91,7 +95,14 @@ public class SimpleRest {
 					@Override
 					public void onResponse(JSONObject response) {
 						try {
-							callback.onSuccess(response);
+							Gson gson = new Gson();
+							Meta meta = gson.fromJson(response.getJSONObject("meta")
+									.toString(), Meta.class);
+							if (!meta.getOk()) {
+								Utils.showToast(context, meta.getMessage());
+							} else {
+								callback.onSuccess(response);
+							}
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
@@ -102,15 +113,19 @@ public class SimpleRest {
 					public void onErrorResponse(VolleyError error) {
 						Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG);
 					}
-				});
-
-		Contato contato = (Contato) localStorage.getItem(Constant.USER_TOKEN, Contato.class);
-		if (contato != null) {
-			String token = (String) localStorage.getItem(contato.getNumero(), String.class);
-			Map<String, String> header = new HashMap<>();
-			header.put("Authorization", "Bearer " + token);
-			request.setHeaders(header);
-		}
+				}) {
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError {
+				HashMap<String, String> headers = new HashMap<>();
+				Contato contato = (Contato) localStorage.getItem(Constant.USER_TOKEN, Contato.class);
+				if (contato != null) {
+					String token = (String) localStorage.getItem(contato.getNumero(), String.class);
+					Map<String, String> header = new HashMap<>();
+					headers.put(Constant.AUTHORIZATION, "Bearer " + token);
+				}
+				return headers;
+			}
+		};
 		rq.add(request);
 	}
 

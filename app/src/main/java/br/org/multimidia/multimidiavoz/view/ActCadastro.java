@@ -1,6 +1,7 @@
 package br.org.multimidia.multimidiavoz.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,8 +19,10 @@ import br.org.multimidia.multimidiavoz.BO.ContatoBO;
 import br.org.multimidia.multimidiavoz.R;
 import br.org.multimidia.multimidiavoz.domain.Contato;
 import br.org.multimidia.multimidiavoz.domain.Meta;
+import br.org.multimidia.multimidiavoz.enuns.Action;
 import br.org.multimidia.multimidiavoz.rest.SimpleRest;
 import br.org.multimidia.multimidiavoz.rest.UserRest;
+import br.org.multimidia.multimidiavoz.utils.Router;
 import br.org.multimidia.multimidiavoz.utils.Utils;
 
 public class ActCadastro extends AppCompatActivity {
@@ -68,11 +71,8 @@ public class ActCadastro extends AppCompatActivity {
                         @Override
                         public void onSuccess(JSONObject jsonObject) throws JSONException {
                             Gson gson = new Gson();
-
                             Meta meta = gson.fromJson(jsonObject.getJSONObject("meta").toString(), Meta.class);
-                            Contato contato = gson.fromJson(jsonObject.getJSONObject("user").toString(), Contato.class);
                             Utils.showToast(ActCadastro.this, meta.getMessage());
-                            Log.i("Log", jsonObject.toString());
                         }
                     });
         }

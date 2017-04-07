@@ -2,21 +2,28 @@ package br.org.multimidia.multimidiavoz.rest;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import br.org.multimidia.multimidiavoz.domain.Meta;
 import br.org.multimidia.multimidiavoz.utils.Constant;
+import br.org.multimidia.multimidiavoz.utils.Utils;
 
 /**
  * Created by jheimesilveira on 11/03/2016.
  */
 public class UserRest extends SimpleRest {
 
+    private Context context;
+
     public UserRest(Context context) {
         super(context);
+        this.context = context;
     }
 
     /**

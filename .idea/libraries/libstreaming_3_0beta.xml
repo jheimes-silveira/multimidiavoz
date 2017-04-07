@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="libstreaming-3.0beta">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.fyhertz/libstreaming/3.0beta/1f77827773714744e56f4714cdf87008a4521ac7/libstreaming-3.0beta.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.fyhertz/libstreaming/3.0beta/684d2895727e07a76a767e6cb1a8ca924c284678/libstreaming-3.0beta-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

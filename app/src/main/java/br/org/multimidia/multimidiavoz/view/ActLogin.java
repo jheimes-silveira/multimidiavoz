@@ -1,6 +1,7 @@
 package br.org.multimidia.multimidiavoz.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,10 +18,13 @@ import br.org.multimidia.multimidiavoz.BO.ContatoBO;
 import br.org.multimidia.multimidiavoz.R;
 import br.org.multimidia.multimidiavoz.domain.Contato;
 import br.org.multimidia.multimidiavoz.domain.Meta;
+import br.org.multimidia.multimidiavoz.enuns.Action;
 import br.org.multimidia.multimidiavoz.rest.SimpleRest;
 import br.org.multimidia.multimidiavoz.rest.UserRest;
 import br.org.multimidia.multimidiavoz.utils.Constant;
 import br.org.multimidia.multimidiavoz.utils.LocalStorage;
+import br.org.multimidia.multimidiavoz.utils.MobileApp;
+import br.org.multimidia.multimidiavoz.utils.Router;
 import br.org.multimidia.multimidiavoz.utils.Utils;
 
 public class ActLogin extends AppCompatActivity {
@@ -35,6 +39,10 @@ public class ActLogin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (new MobileApp().getApplication().getContatoLogado(ActLogin.this) != null) {
+            Router.onCreateActivity(ActLogin.this, ActPrincipal.class);
+            finish();
+        }
         setContentView(R.layout.activity_act_login);
     }
 
@@ -58,6 +66,11 @@ public class ActLogin extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    public void onCadastrar(View view) {
+        startActivity(new Intent(context, ActCadastro.class));
+    }
+
     private void initView() {
         telefone = (EditText) findViewById(R.id.et_telefone);
         senha = (EditText) findViewById(R.id.et_senha);
@@ -75,12 +88,16 @@ public class ActLogin extends AppCompatActivity {
                                 Meta meta = gson.fromJson(jsonObject.getJSONObject("meta").toString(), Meta.class);
                                 Contato contato = gson.fromJson(jsonObject.getJSONObject("user").toString(), Contato.class);
                                 String token = (String) jsonObject.get("token");
-                                if (meta.getOk()) {
-                                    bo.create(contato);
-                                    localStorage.setItem(Constant.USER_TOKEN, contato);
-                                    localStorage.setItem(contato.getNumero(), token);
+                                bo.create(contato);
+                                localStorage.setItem(Constant.USER_TOKEN, contato);
+                                localStorage.setItem(contato.getNumero(), token);
+                                contato = new MobileApp().getApplication().getContatoLogado(context);
+                                if (contato != null) {
+                                    Intent intent = new Intent(context, ActPrincipal.class);
+                                    intent.putExtra(Action.MESSAGE.toString(), meta.getMessage());
+                                    startActivity(intent);
+                                    finish();
                                 }
-                                Utils.showToast(context, meta.getMessage());
                             }
                         });
             }

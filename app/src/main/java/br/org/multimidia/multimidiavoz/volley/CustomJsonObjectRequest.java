@@ -46,11 +46,7 @@ public class CustomJsonObjectRequest extends Request<JSONObject> {
 		return params;
 	}
 
-	public void setHeaders(Map<String, String> headers) {
-		this.headers = headers;
-	}
-
-	public Map<String, String> getHeaders() throws AuthFailureError{
+	public Map<String, String> getHeaders() throws AuthFailureError {
 		HashMap<String, String> header = new HashMap<String, String>();
 		header.put("apiKey", "Essa e minha API KEY: json object");
 		return(header);
@@ -65,9 +61,6 @@ public class CustomJsonObjectRequest extends Request<JSONObject> {
 	protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
 
 		try {
-			for (Map.Entry<String, String> map : headers.entrySet()) {
-				response.headers.put(map.getKey(), map.getValue());
-			}
 			String js = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
 			return(Response.success(new JSONObject(js), HttpHeaderParser.parseCacheHeaders(response)));
 		}
