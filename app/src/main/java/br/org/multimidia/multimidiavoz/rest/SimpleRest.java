@@ -105,6 +105,7 @@ public class SimpleRest {
 							}
 						} catch (JSONException e) {
 							e.printStackTrace();
+							Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG);
 						}
 					}
 				},

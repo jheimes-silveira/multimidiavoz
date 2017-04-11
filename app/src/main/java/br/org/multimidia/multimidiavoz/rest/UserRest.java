@@ -74,10 +74,12 @@ public class UserRest extends SimpleRest {
                         callback.onSuccess(jsonObject);
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Utils.showToast(context, e.getMessage());
                     }
                 }
             });
         } catch (JSONException e) {
+            Utils.showToast(context, e.getMessage());
             e.printStackTrace();
         }
     }

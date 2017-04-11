@@ -21,13 +21,18 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
-
-        <ImageView
+        <LinearLayout
+            android:id="@+id/ll_logo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/logo_multimidia"
-            android:id="@+id/imageView2"
-            android:layout_weight="0.03" />
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/logo_multimidia"
+                android:id="@+id/imageView2"
+                android:layout_weight="0.03" />
+        </LinearLayout>
+
 
         <EditText
             android:layout_width="match_parent"
@@ -60,9 +65,8 @@
 
         <Button
             android:text="@string/app_login"
-            android:id="@+id/button"
+            android:id="@+id/btn_login"
             android:gravity="center"
-            android:onClick="onLogin"
             android:layout_marginTop="10dp"
             android:layout_height="60dp"
             android:layout_weight="0.04"

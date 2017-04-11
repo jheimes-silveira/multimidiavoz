@@ -2,10 +2,13 @@ package br.org.multimidia.multimidiavoz.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 
@@ -25,7 +28,6 @@ import br.org.multimidia.multimidiavoz.utils.Constant;
 import br.org.multimidia.multimidiavoz.utils.LocalStorage;
 import br.org.multimidia.multimidiavoz.utils.MobileApp;
 import br.org.multimidia.multimidiavoz.utils.Router;
-import br.org.multimidia.multimidiavoz.utils.Utils;
 
 public class ActLogin extends AppCompatActivity {
 
@@ -34,7 +36,9 @@ public class ActLogin extends AppCompatActivity {
     private UserRest userRest;
     private ContatoBO bo;
     private Context context;
+    private LinearLayout llLogo;
     private LocalStorage localStorage;
+    private Button btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +57,12 @@ public class ActLogin extends AppCompatActivity {
     }
 
     private void initComponent() {
-        initData();
         initView();
+        initData();
+        onLogin();
     }
+
+
     private void initData() {
         context = ActLogin.this;
         try {
@@ -74,11 +81,16 @@ public class ActLogin extends AppCompatActivity {
     private void initView() {
         telefone = (EditText) findViewById(R.id.et_telefone);
         senha = (EditText) findViewById(R.id.et_senha);
+        btnLogin = (Button) findViewById(R.id.btn_login);
+        llLogo = (LinearLayout) findViewById(R.id.ll_logo);
     }
 
-    public void onLogin(View view) {
-        if (verificarContato()) {
-                userRest.logar(
+    public void onLogin() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (verificarContato()) {
+                    userRest.logar(
                         telefone.getText().toString(),
                         senha.getText().toString(),
                         new SimpleRest.CallbackObject() {
@@ -100,7 +112,10 @@ public class ActLogin extends AppCompatActivity {
                                 }
                             }
                         });
+                }
             }
+        });
+
     }
 
     private boolean verificarContato() {
