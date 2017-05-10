@@ -90,6 +90,8 @@ public class ActPrincipal extends AppCompatActivity {
             MobileApp.getApplication().logout(context);
             Router.onCreateActivity(context, ActLogin.class);
             finish();
+        } else if (id == R.id.btn_pesquisar_contatos) {
+            Router.onCreateActivity(context, ActPesquisaContato.class);
         }
         return true;
     }

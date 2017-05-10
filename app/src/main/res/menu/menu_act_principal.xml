@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="br.org.multimidia.multimidiavoz.view.ActPrincipal">
     <item
+        android:id="@+id/btn_pesquisar_contatos"
+        android:orderInCategory="100"
+        android:title="Pesquisar contatos"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/btn_deslogar"
         android:orderInCategory="100"
         android:title="Deslogar"
