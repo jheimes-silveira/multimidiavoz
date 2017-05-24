@@ -27,6 +27,28 @@ public class UserRest extends SimpleRest {
     }
 
     /**
+     * lista todos os contatos cadastrados
+     * @param callback retorno da chamada
+     */
+    public void contatos(final CallbackObject callback) {
+        try {
+            String url = Constant.URL + "/buscar-todos-contatos";
+            postCallObjectRequest(url, new HashMap<String, String>(), new CallbackObject() {
+                @Override
+                public void onSuccess(JSONObject jsonObject) {
+                    try {
+                        callback.onSuccess(jsonObject);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * cria um novo usuario no sistema
      * @param callback retorno da chamada
      */

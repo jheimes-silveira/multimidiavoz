@@ -1,12 +1,15 @@
 package br.org.multimidia.multimidiavoz.domain;
 
+import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
+
+import java.io.Serializable;
 
 /**
  * Created by jheimes on 20/02/17.
  */
 
-public class Contato {
+public class Contato implements Serializable {
 
     public static final String ID = "id";
     public static final String NOME = "nome";
