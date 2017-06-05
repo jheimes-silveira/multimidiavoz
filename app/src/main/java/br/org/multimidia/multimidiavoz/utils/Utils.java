@@ -11,6 +11,9 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.net.ConnectivityManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -33,6 +36,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import br.org.multimidia.multimidiavoz.R;
 
 public class Utils<T>{
   
@@ -336,6 +341,17 @@ public class Utils<T>{
 		return array;
 	}
 
+	public static void setFragmentReplacePage(FragmentManager supportFragmentManager, Fragment fgt) {
+		FragmentManager fm = supportFragmentManager;
+		FragmentTransaction ft = fm.beginTransaction();
+		ft.replace(R.id.containerActPrincipal, fgt).commit();
+	}
+
+	public static void setFragmentReplacePage(FragmentManager supportFragmentManager, Fragment fgt, int referenceFrameLayout) {
+		FragmentManager fm = supportFragmentManager;
+		FragmentTransaction ft = fm.beginTransaction();
+		ft.replace(referenceFrameLayout, fgt).commit();
+	}
 	/**
 	 * converter para <>String, String</>
 	 * @param map

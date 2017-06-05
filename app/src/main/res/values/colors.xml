@@ -6,4 +6,6 @@
 
     <color name="colorPapelParedeAtendido">#4C6387</color>
     <color name="colorBranco">#F5F5F5</color>
+
+    <color name="transparent">#000232cf</color>
 </resources>

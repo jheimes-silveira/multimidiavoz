@@ -2,59 +2,86 @@ package br.org.multimidia.multimidiavoz.view;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.support.annotation.FractionRes;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.TextView;
 
-import net.majorkernelpanic.streaming.SessionBuilder;
-import net.majorkernelpanic.streaming.gl.SurfaceView;
-import net.majorkernelpanic.streaming.rtsp.RtspServer;
 
+import com.github.clans.fab.FloatingActionButton;
+
+import br.org.multimidia.multimidiavoz.ParamsBundle;
 import br.org.multimidia.multimidiavoz.R;
+import br.org.multimidia.multimidiavoz.domain.Contato;
 import br.org.multimidia.multimidiavoz.utils.LocalStorage;
+import br.org.multimidia.multimidiavoz.utils.Utils;
 
-public class ActAtender extends AppCompatActivity {
+public class ActAtender extends Fragment {
 
-    private SurfaceView mSurfaceView;
-    private LocalStorage localStorage;
+    private View view;
+    private TextView tvNome;
+    private FloatingActionButton btnAtender;
+    private FloatingActionButton btnDesligar;
+    private String nome;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        setContentView(R.layout.activity_act_atender);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return view = inflater.inflate(R.layout.activity_act_atender, container, false);
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         initComponentes();
+        onBtnAtender();
+        onBtnDesligar();
+    }
+
+    private void onBtnDesligar() {
+        btnDesligar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActPrincipal act = (ActPrincipal) getActivity();
+                act.onEncerrarChamada();
+            }
+        });
+    }
+
+    private void onBtnAtender() {
+        btnAtender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActPrincipal act = (ActPrincipal) getActivity();
+                act.onAtenderChamada(nome);
+            }
+        });
     }
 
     private void initComponentes() {
         initViews();
-        initServer();
+        initDados();
+        initTv();
     }
 
-    private void initServer() {
-
-        // Sets the port of the RTSP server to 1234
-        localStorage.setItem(RtspServer.KEY_PORT, String.valueOf(1234));
-
-        // Configures the SessionBuilder
-        SessionBuilder.getInstance()
-                .setSurfaceView(mSurfaceView)
-                .setPreviewOrientation(90)
-                .setContext(getApplicationContext())
-                .setAudioEncoder(SessionBuilder.AUDIO_NONE)
-                .setVideoEncoder(SessionBuilder.VIDEO_H264);
-
-        // Starts the RTSP server
-        this.startService(new Intent(this,RtspServer.class));
-
+    private void initTv() {
+        tvNome.setText(nome);
     }
+
 
     private void initViews() {
-        mSurfaceView = (SurfaceView) findViewById(R.id.surface);
+        tvNome = (TextView) view.findViewById(R.id.tvNome);
+        btnAtender = (FloatingActionButton) view.findViewById(R.id.btnAtender);
+        btnDesligar = (FloatingActionButton) view.findViewById(R.id.btnDesligar);
+
+    }
+
+    private void initDados() {
+        nome = getArguments().getString("nome");
     }
 }

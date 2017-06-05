@@ -9,9 +9,11 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import br.org.multimidia.multimidiavoz.domain.Meta;
 import br.org.multimidia.multimidiavoz.utils.Constant;
+import br.org.multimidia.multimidiavoz.utils.MobileApp;
 import br.org.multimidia.multimidiavoz.utils.Utils;
 
 /**
@@ -32,8 +34,10 @@ public class UserRest extends SimpleRest {
      */
     public void contatos(final CallbackObject callback) {
         try {
+            Map<String, String> map = new HashMap<>();
+            map.put("idUser", MobileApp.getApplication().getContatoLogado(context).getId().toString());
             String url = Constant.URL + "/buscar-todos-contatos";
-            postCallObjectRequest(url, new HashMap<String, String>(), new CallbackObject() {
+            postCallObjectRequest(url, map, new CallbackObject() {
                 @Override
                 public void onSuccess(JSONObject jsonObject) {
                     try {

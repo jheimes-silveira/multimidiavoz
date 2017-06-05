@@ -5,15 +5,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import br.org.multimidia.multimidiavoz.BO.ConversaBO;
 import br.org.multimidia.multimidiavoz.R;
 import br.org.multimidia.multimidiavoz.domain.Conversa;
 import br.org.multimidia.multimidiavoz.ui.adapter.AdapterLvConversas;
+import br.org.multimidia.multimidiavoz.utils.Utils;
 
 
 /**
@@ -22,6 +26,7 @@ import br.org.multimidia.multimidiavoz.ui.adapter.AdapterLvConversas;
 public class FgtConversas extends Fragment {
     private View view = null;
     private ListView lvConversas;
+    private ConversaBO conversaBO;
 
     /**
      * construtor da minha view
@@ -42,6 +47,8 @@ public class FgtConversas extends Fragment {
         super.onResume();
         initComponents();
         onLvConversas();
+        onContato();
+        onConversas();
     }
 
 
@@ -50,25 +57,43 @@ public class FgtConversas extends Fragment {
      */
     private void initComponents() {
         initR();
-        super.onStart();
+        initDados();
+    }
+
+    private void initDados() {
+        try {
+            conversaBO = new ConversaBO(getContext());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void onLvConversas() {
-        List<Conversa> conversas = new ArrayList<>();
-        for(int i = 0 ; i < 9 ; i++) {
-            Conversa conversa = new Conversa();
-            Calendar calendar = Calendar.getInstance();
-            conversa.setDtaInicio(calendar.getTime());
-            calendar.add(Calendar.MINUTE, 5);
-            conversa.setDtaFinal(calendar.getTime());
-            conversa.setNumeroDestino("(34) 9 9226434"+ (i+1));
-            conversa.setUsuarioDestino("Funalo de tal");
-            conversas.add(conversa);
-        }
+        List<Conversa> conversas = conversaBO.findAll();
         lvConversas.setAdapter(new AdapterLvConversas(getContext(), conversas));
     }
 
     private void initR() {
         lvConversas = (ListView) view.findViewById(R.id.fgt_conversas_lv);
+    }
+    private void onContato() {
+        Button btn = (Button) view.findViewById(R.id.btnContatos);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.setFragmentReplacePage(getActivity().getSupportFragmentManager(),
+                        new FgtContatos());
+            }
+        });
+    }
+    private void onConversas() {
+        Button btn = (Button) view.findViewById(R.id.btnConversar);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.setFragmentReplacePage(getActivity().getSupportFragmentManager(),
+                        new FgtConversas());
+            }
+        });
     }
 }

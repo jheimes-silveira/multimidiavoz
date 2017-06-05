@@ -8,8 +8,10 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import br.org.multimidia.multimidiavoz.domain.Contato;
+import br.org.multimidia.multimidiavoz.domain.Conversa;
 
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
@@ -24,6 +26,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase sd, ConnectionSource cs) {
         try {
             TableUtils.createTable(cs, Contato.class);
+            TableUtils.createTable(cs, Conversa.class);
         }
         catch(SQLException e) {
             e.printStackTrace();
@@ -33,6 +36,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase sd, ConnectionSource cs, int oldVersion, int newVersion) {
         try {
             TableUtils.dropTable(cs, Contato.class, true);
+            TableUtils.dropTable(cs, Conversa.class, true);
             onCreate(sd, cs);
         }
         catch(SQLException e) {

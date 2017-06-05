@@ -1,7 +1,7 @@
 package br.org.multimidia.multimidiavoz.domain;
 
-import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
 
@@ -9,6 +9,7 @@ import java.io.Serializable;
  * Created by jheimes on 20/02/17.
  */
 
+@DatabaseTable
 public class Contato implements Serializable {
 
     public static final String ID = "id";
@@ -21,7 +22,7 @@ public class Contato implements Serializable {
     public static final String MEU_NUMERO = "meuNumero";
     public static final String CONTATO_NUMERO = "contatoNumero";
 
-    @DatabaseField(generatedId = true, columnName = "id")
+    @DatabaseField(id = true, columnName = ID)
     private Integer id;
 
     @DatabaseField(columnName = "nome")

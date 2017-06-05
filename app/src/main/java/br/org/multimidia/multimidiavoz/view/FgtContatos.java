@@ -1,27 +1,22 @@
 package br.org.multimidia.multimidiavoz.view;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import br.org.multimidia.multimidiavoz.BO.ContatoBO;
 import br.org.multimidia.multimidiavoz.R;
 import br.org.multimidia.multimidiavoz.domain.Contato;
-import br.org.multimidia.multimidiavoz.domain.Meta;
 import br.org.multimidia.multimidiavoz.rest.SimpleRest;
 import br.org.multimidia.multimidiavoz.rest.UserRest;
 import br.org.multimidia.multimidiavoz.rest.response.ContatoResponse;
@@ -68,6 +63,8 @@ public class FgtContatos extends Fragment {
         initR();
         initData();
         onLvContatos();
+        onContato();
+        onConversas();
     }
 
     private void initData() {
@@ -90,22 +87,39 @@ public class FgtContatos extends Fragment {
                     Utils.showToast(getContext(), response.getMeta().getMessage());
                     return;
                 }
-                lvContatos.setAdapter(new AdapterLvContatos(getContext(), response.getContatos()));
+                lvContatos.setAdapter(new AdapterLvContatos(getActivity(), response.getContatos()));
                 lvContatos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Contato contato = (Contato) lvContatos.getAdapter().getItem(position);
-                        Bundle args = new Bundle();
-                        args.putSerializable("contato", contato);
-                        Intent i = new Intent(getActivity(), ActAtendido.class);
-                        i.putExtras(args);
-                        getActivity().startActivity(i);
+                        ActPrincipal act = (ActPrincipal) getActivity();
+                        act.initCall(contato);
                     }
                 });
             }
         });
     }
 
+    private void onContato() {
+        Button btn = (Button) view.findViewById(R.id.btnContatos);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.setFragmentReplacePage(getActivity().getSupportFragmentManager(),
+                        new FgtContatos());
+            }
+        });
+    }
+    private void onConversas() {
+        Button btn = (Button) view.findViewById(R.id.btnConversar);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.setFragmentReplacePage(getActivity().getSupportFragmentManager(),
+                        new FgtConversas());
+            }
+        });
+    }
     private void initR() {
         lvContatos = (ListView) view.findViewById(R.id.fgt_contatos_lv);
     }
